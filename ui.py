@@ -1,7 +1,7 @@
 
 class UI(object):
     def __init__(self, max=2000):
-        self.steps = 0
+        self.steps = 1
         self.MAX = max
 
     def show(self, board):
@@ -21,7 +21,7 @@ class UI(object):
 
     def running(self):
         self.steps += 1
-        result = self.steps < self.MAX
+        result = self.steps <= self.MAX
         if not result:
             print "Max steps reached - %s" %(self.MAX,)
         return result

@@ -52,6 +52,7 @@ class Board(object):
 
     @staticmethod
     def random_board(size, chance=0.2):
+        assert isinstance(chance, float), `chance`
         def rand_bool():
             from random import random
             return random() < chance

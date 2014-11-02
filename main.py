@@ -15,7 +15,7 @@ def main(args):
     board_name = opts.board
     steps = int(opts.steps)
     automaton_name = opts.automaton
-    p_value = opts.probability
+    p_value = float(opts.probability)
     automaton = None
     if automaton_name:
         import automata

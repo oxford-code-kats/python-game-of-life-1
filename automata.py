@@ -13,22 +13,6 @@ class Automaton(object):
                 new_board.set_cell(x, y, is_alive)
         return new_board
 
-class Conway(Automaton):
-    def cell_lives(self, board, x, y):
-        was_alive = board.is_alive(x, y)
-        live_neighbours = board.count_live_neighbours(x, y)
-        if was_alive:
-            is_alive = True
-            if live_neighbours < 2:
-                is_alive = False
-            if live_neighbours > 3:
-                is_alive = False
-        else:
-            is_alive = False
-            if live_neighbours == 3:
-                is_alive = True
-        return is_alive
-
 class ModularAutomaton(Automaton):
     def cell_lives(self, board, x, y):
         was_alive = board.is_alive(x, y)
@@ -52,21 +36,12 @@ class Conway(ModularAutomaton):
     def is_killed(self, neighbours):
         return neighbours not in (2, 3)
 
-class HighGrowth(Automaton):
-    def cell_lives(self, board, x, y):
-        was_alive = board.is_alive(x, y)
-        live_neighbours = board.count_live_neighbours(x, y)
-        if was_alive:
-            is_alive = True
-            if live_neighbours < 2:
-                is_alive = False
-            if live_neighbours > 3:
-                is_alive = False
-        else:
-            is_alive = False
-            if live_neighbours in (2,3) :
-                is_alive = True
-        return is_alive
+class HighGrowth(ModularAutomaton):
+    def is_born(self, neighbours):
+        return neighbours in (3, 4)
+
+    def is_killed(self, neighbours):
+        return neighbours not in (2, 3)
 
 class Seeds(Automaton):
     def cell_lives(self, board, x, y):
@@ -77,17 +52,12 @@ class NoDeath(Conway):
         return board.is_alive(x, y) \
                 or super(NoDeath, self).cell_lives(board, x, y)
 
-class HighLife(Automaton):
-    def cell_lives(self, board, x, y):
-        alive = board.is_alive(x, y)
-        neighbours = board.count_live_neighbours(x, y)
-        if alive:
-            if neighbours in (2, 3,):
-                return False
-        else:
-            if neighbours in (3,6):
-                return True
-        return alive
+class HighLife(ModularAutomaton):
+    def is_killed(self, neighbours):
+        return neighbours not in (2, 3)
+
+    def is_born(self, neighbours):
+        return neighbours in (3,6)
 
 class DayAndNight(Automaton):
     def cell_lives(self, board, x, y):
