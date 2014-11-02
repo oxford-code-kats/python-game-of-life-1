@@ -11,9 +11,9 @@ class UI(object):
             line = ""
             for x in range(board.width):
                 if board.is_alive(x, y):
-                    line += "*"
+                    line += " *"
                 else:
-                    line += " "
+                    line += "  "
             print line, "|"
 
     def running(self):
