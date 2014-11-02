@@ -5,7 +5,8 @@ class UI(object):
         self.MAX = max
 
     def show(self, board):
-        print "-------"
+        print "\n" * board.height
+        print "--" * board.width
         popn = 1
         for y in range(board.height):
             line = ""
