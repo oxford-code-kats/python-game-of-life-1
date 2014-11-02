@@ -44,6 +44,20 @@ class NoDeath(Conway):
 class HighLife(Automaton):
     def cell_lives(self, board, x, y):
         alive = board.is_alive(x, y)
+        neighbours = board.count_live_neighbours(x, y)
+        if alive:
+            if neighbours in (2, 3,):
+                return False
+        else:
+            if neighbours in (3,6):
+                return True
+        return alive
+
+class DayAndNight(Automaton):
+    def cell_lives(self, board, x, y):
+        alive = board.is_alive(x, y)
         if board.count_live_neighbours(x, y) in (3,6,7,8):
             return not alive
         return alive
+
+
