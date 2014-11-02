@@ -1,7 +1,7 @@
 
 class UI(object):
     def __init__(self, max=2000):
-        self.steps = 1
+        self.steps = 0
         self.MAX = max
 
     def show(self, board):
