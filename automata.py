@@ -40,3 +40,10 @@ class NoDeath(Conway):
     def cell_lives(self, board, x, y):
         return board.is_alive(x, y) \
                 or super(NoDeath, self).cell_lives(board, x, y)
+
+class HighLife(Automaton):
+    def cell_lives(self, board, x, y):
+        alive = board.is_alive(x, y)
+        if board.count_live_neighbours(x, y) in (3,6,7,8):
+            return not alive
+        return alive
