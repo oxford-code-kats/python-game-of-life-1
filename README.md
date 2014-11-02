@@ -5,8 +5,8 @@ With Console UI and working tests.
 
 Running it
 ----------
-Run `python ui.py`
+Run `python main.py`
 
-This will start, display and run 200 steps of a random board.
-To configure, edit the code.
+This will start, display and run 2000 steps of a random board.
+To configure, see instructions under `python main.py --help`
 
