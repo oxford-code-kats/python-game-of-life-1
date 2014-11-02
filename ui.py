@@ -20,7 +20,7 @@ class UI(object):
         self.steps += 1
         return self.steps < self.MAX
 
-def rand_bool(n=6):
+def rand_bool(n=4):
     from random import randint
     return randint(0, n) == 0
 
