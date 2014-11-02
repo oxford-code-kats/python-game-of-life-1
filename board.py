@@ -4,6 +4,9 @@ class Board(object):
         self.matrix = matrix
         self.validate(matrix)
 
+    def __eq__(self, other):
+        return self.as_int_matrix() == other.as_int_matrix()
+
     def validate(self, matrix):
         pass
 

@@ -1,24 +1,29 @@
 
 class UI(object):
-    MAX = 200
-
-    def __init__(self):
+    def __init__(self, max=2000):
         self.steps = 0
+        self.MAX = max
 
     def show(self, board):
         print "-------"
+        popn = 1
         for y in range(board.height):
             line = ""
             for x in range(board.width):
                 if board.is_alive(x, y):
+                    popn += 1
                     line += " *"
                 else:
                     line += "  "
             print line, "|"
+        print "(step =", self.steps, "population =", popn,")"
 
     def running(self):
         self.steps += 1
         return self.steps < self.MAX
+
+    def stable(self, board):
+        print "BOARD STABLE"
 
 def rand_bool(n=4):
     from random import randint
@@ -33,14 +38,23 @@ def random_board(size):
                 board.set_cell(x, y, True)
     return board
 
-def main():
+def main(args):
+    size = 40
+    board = None
+    if args:
+        if args[0] == '--board':
+            board_name = args[1]
+            board = get_board(board_name)
+    if board is None:
+        board = random_board(size)
     from game import Game
-    SIZE = 30
+    from board import Board
     ui = UI()
-    board = random_board(SIZE)
     game = Game(board)
-    game.play(ui)
+    delay = 0.1
+    game.play(ui, delay=delay)
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(sys.argv[1:])
 
