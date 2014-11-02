@@ -20,7 +20,10 @@ class UI(object):
 
     def running(self):
         self.steps += 1
-        return self.steps < self.MAX
+        result = self.steps < self.MAX
+        if not result:
+            print "Max steps reached - %s" %(self.MAX,)
+        return result
 
     def stable(self, board):
         print "BOARD STABLE"

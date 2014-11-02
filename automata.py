@@ -14,9 +14,6 @@ class Automaton(object):
         return new_board
 
 class Conway(Automaton):
-    def __init__(self):
-        pass
-    
     def cell_lives(self, board, x, y):
         was_alive = board.is_alive(x, y)
         live_neighbours = board.count_live_neighbours(x, y)
@@ -29,6 +26,45 @@ class Conway(Automaton):
         else:
             is_alive = False
             if live_neighbours == 3:
+                is_alive = True
+        return is_alive
+
+class ModularAutomaton(Automaton):
+    def cell_lives(self, board, x, y):
+        was_alive = board.is_alive(x, y)
+        live_neighbours = board.count_live_neighbours(x, y)
+        if was_alive:
+            return not self.is_killed(live_neighbours)
+        else:
+            return self.is_born(live_neighbours)
+        return is_alive
+    
+    def is_born(self, neighbours):
+        return neighbours == 3
+
+    def is_killed(self, neighbours):
+        return neighbours not in (2, 3)
+
+class Conway(ModularAutomaton):
+    def is_born(self, neighbours):
+        return neighbours == 3
+
+    def is_killed(self, neighbours):
+        return neighbours not in (2, 3)
+
+class HighGrowth(Automaton):
+    def cell_lives(self, board, x, y):
+        was_alive = board.is_alive(x, y)
+        live_neighbours = board.count_live_neighbours(x, y)
+        if was_alive:
+            is_alive = True
+            if live_neighbours < 2:
+                is_alive = False
+            if live_neighbours > 3:
+                is_alive = False
+        else:
+            is_alive = False
+            if live_neighbours in (2,3) :
                 is_alive = True
         return is_alive
 

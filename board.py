@@ -34,10 +34,10 @@ class Board(object):
         return [[1 if x else 0
                 for x in row] for row in self.matrix]
 
-    def count_live_neighbours(self, x0, y0):
+    def count_live_neighbours(self, x0, y0, radius=1):
         count = 0
-        for x in [x0-1, x0, x0+1]:
-            for y in [y0-1, y0, y0+1]:
+        for x in [x0-radius, x0, x0+radius]:
+            for y in [y0-radius, y0, y0+radius]:
                 if x == x0 and y == y0:
                     # Skip the center
                     continue
@@ -51,10 +51,10 @@ class Board(object):
         return Board(matrix)
 
     @staticmethod
-    def random_board(size):
-        def rand_bool(n=4):
-            from random import randint
-            return randint(0, n) == 0
+    def random_board(size, chance=0.2):
+        def rand_bool():
+            from random import random
+            return random() < chance
         board = Board.blank(size, size)
         for x in range(board.width):
             for y in range(board.height):
