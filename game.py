@@ -1,9 +1,11 @@
 
 class Game(object):
-    def __init__(self, board):
+    def __init__(self, board, automaton=None):
         from board import Board
-        from automata import Automaton
-        self.automaton = Automaton()
+        if not automaton:
+            import automata
+            automaton = automata.make_automaton('Conway')
+        self.automaton = automaton
         if not isinstance(board, Board):
             board = Board(board)
         self.board = board

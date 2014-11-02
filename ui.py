@@ -39,19 +39,33 @@ def random_board(size):
     return board
 
 def main(args):
-    size = 40
-    board = None
-    if args:
-        if args[0] == '--board':
-            board_name = args[1]
-            board = get_board(board_name)
-    if board is None:
+    from optparse import OptionParser, Option
+    parser = OptionParser("", [
+        Option('-b', '--board'),
+        Option('-s', '--size', default=40),
+        Option('-d', '--delay', default=0.1),
+        Option('-a', '--automaton', default='Conway'),
+        ])
+    opts, args = parser.parse_args(args)
+    size = int(opts.size)
+    delay = float(opts.delay)
+    board_name = opts.board
+    automaton_name = opts.automaton
+    automaton = None
+    if automaton_name:
+        import automata
+        automaton = automata.make_automaton(automaton_name)
+    if board_name is None:
         board = random_board(size)
+    else:
+        board = get_board(board_name)
+    run(board, delay=delay, automaton=automaton)
+
+def run(board, delay=0.1, automaton=None):
     from game import Game
     from board import Board
     ui = UI()
-    game = Game(board)
-    delay = 0.1
+    game = Game(board, automaton=automaton)
     game.play(ui, delay=delay)
 
 if __name__ == '__main__':
