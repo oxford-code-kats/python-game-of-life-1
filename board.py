@@ -50,3 +50,17 @@ class Board(object):
         matrix = [width*[0] for i in range(height)]
         return Board(matrix)
 
+    @staticmethod
+    def random_board(size):
+        def rand_bool(n=4):
+            from random import randint
+            return randint(0, n) == 0
+        board = Board.blank(size, size)
+        for x in range(board.width):
+            for y in range(board.height):
+                if rand_bool():
+                    board.set_cell(x, y, True)
+        return board
+
+    
+
