@@ -13,8 +13,9 @@ class Game(object):
         self.board = new_board
         return new_board
 
-    def play(self, ui):
+    def play(self, ui, delay=0.4):
+        import time
         while ui.running():
             ui.show(self.board)
             self.step()
-
+            time.sleep(delay)

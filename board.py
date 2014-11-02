@@ -25,7 +25,7 @@ class Board(object):
         return len(self.matrix)
 
     def set_cell(self, x, y, alive):
-        self.matrix[y][x] = True
+        self.matrix[y][x] = alive
 
     def as_int_matrix(self):
         return [[1 if x else 0

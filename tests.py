@@ -58,9 +58,9 @@ class TestGame(unittest.TestCase):
             [1,1,1],
             ])
         self.assertEqual([
+            [1,0,1],
             [0,0,0],
-            [0,0,0],
-            [0,0,0],
+            [1,0,1],
                 ], actual)
 
     def test_one_cell(self):

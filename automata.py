@@ -17,7 +17,6 @@ class Automaton(object):
                         is_alive = False
                     if live_neighbours > 3:
                         is_alive = False
-                    raise RuntimeError(is_alive, x, y, board.as_int_matrix())
                 else:
                     is_alive = False
                     if live_neighbours == 3:
