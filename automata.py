@@ -18,11 +18,14 @@ class ModularAutomaton(Automaton):
         was_alive = board.is_alive(x, y)
         live_neighbours = board.count_live_neighbours(x, y)
         if was_alive:
-            return not self.is_killed(live_neighbours)
+            return self.survives(live_neighbours)
         else:
             return self.is_born(live_neighbours)
         return is_alive
     
+    def survives(self, neighbours):
+        return not self.is_killed(neighbours)
+
     def is_born(self, neighbours):
         return neighbours == 3
 
